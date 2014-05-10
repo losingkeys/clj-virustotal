@@ -1,0 +1,36 @@
+* clj-virustotal
+  An API wrapper for VirusTotal. Information about possible requests and
+  responses and how the API is structured can be found in [[https://www.virustotal.com/en/documentation/public-api/][their API
+  documentation]]. Information about how to use this wrapper can be found [[https://losingkeys.github.io/clj-virustotal][in its
+  documentation]].
+* Things to know
+  Here are some useful things to know when working with this API wrapper and
+  VirusTotal's API in general. Note: these may become out of date if/as the API
+  changes. Consider [[https://www.virustotal.com/en/documentation/public-api/][the API documentation]] the best source for this information.
+** API Keys
+   Each request requires an API key. Because of this, none of the wrapper
+   functions require one. Instead, set the =VT_API_KEY= environment variable,
+   and =clj-virustotal= will be able to use that.
+** Response Bodies
+   In the [[https://www.virustotal.com/en/documentation/public-api/#response-basics]["response basics"]] section of the API documentation, it says response
+   bodies come back as JSON. Because of this, =clj-virustotal= automatically
+   parses them, and makes the parsed keys a little more clojure-esq, by
+   replacing sequences of one or more non-alphanumeric characters with dashes
+   and lower-casing the keys. So to get the response code (which is available in
+   every response), you would write something like this:
+#+BEGIN_SRC clojure
+(get-in (clj-virustotal.url/scan "https://example.com/")
+        [:body :response-code])
+#+END_SRC
+   Some responses (especially those that contain the names of virus scanning
+   software, like [[https://www.virustotal.com/en/documentation/public-api/#getting-url-scans][url scans]]) have JSON keys with spaces and dots in them. To
+   access those keys you would write something similar:
+#+BEGIN_SRC clojure
+;; might return JSON like this: {"body": {"scans": {"something _.-complicated": ...}}}
+(get-in (clj-virustotal.url/scan "https://example.com/")
+        [:body :scans :something-complicated])
+#+END_SRC
+** Rate limiting
+   API requests are rate-limited. Usually the docs for this wrapper mention what
+   the default rates are. The API docs mention you can ask for a higher limit
+   too via [[https://www.virustotal.com/en/about/contact/][the contact form]] if needed.
