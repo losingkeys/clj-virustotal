@@ -1,7 +1,13 @@
-/classes
-/checkouts
+### https://raw.github.com/github/gitignore/master/Clojure.gitignore
+
 pom.xml
 pom.xml.asc
-*.class
-/.lein-*
-/.nrepl-port
+*jar
+/lib/
+/classes/
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-java -jar target/clj-virustotal-0.1.0-SNAPSHOT-standalone.jar $@
