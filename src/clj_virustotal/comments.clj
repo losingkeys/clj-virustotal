@@ -14,7 +14,7 @@ Arguments:
 
 - comment: the comment to add. This can contain #tags (starting with the
   # symbol, and can mention @users (starting with the # symbol)"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [resource comment]
   (vt/api-post "/comments/put"
                :resource resource

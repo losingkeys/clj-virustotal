@@ -1,4 +1,4 @@
-(defproject clj-virustotal "0.1.0-SNAPSHOT"
+(defproject clj-virustotal "1.0.0"
   :description "An API wrapper for VirusTotal. More info:
 https://www.virustotal.com/en/documentation/public-api/"
   :url "https://losingkeys.github.io/clj-virustotal"

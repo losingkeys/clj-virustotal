@@ -4,7 +4,6 @@
 More information:
 https://www.virustotal.com/en/documentation/public-api/"
   (:require [clj-http.client :as http]
-            [digest]
             [clojure.string :as s]
             [cheshire.core :as json]))
 
@@ -33,7 +32,7 @@ Note: this can be set as the VT_API_KEY environment variable."
 Arguments:
 
 - path: the relative path of a VirusTotal URL"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [path]
   (s/replace-first (s/replace (str VT_API_BASE_URL path)
                               #"/+" "/")
@@ -64,7 +63,7 @@ https://github.com/dakrone/clj-http#usage
 For more information on the request format for VirusTotal API requests,
 see the intro to its API documentation:
 https://www.virustotal.com/en/documentation/public-api/"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [m]
   (let [v (:multipart m)]
     (assoc m
@@ -77,7 +76,7 @@ https://www.virustotal.com/en/documentation/public-api/"
 For more info on clj-https' multipart requests, see the 'usage' section
 of the README:
 https://github.com/dakrone/clj-http#usage"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [m]
   {:multipart (reduce (fn [memo [k v]]
                         (conj memo {:name (subs (str k) 1)
@@ -94,7 +93,7 @@ https://github.com/dakrone/clj-http#usage"
 Arguments:
 
 - response: a hash-map containing a :body key pointing to a JSON string"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [response]
   (let [body (:body response)
         parsed (json/parse-string body #(keyword (.toLowerCase (s/replace % #"[\W_]+" "-"))))]
@@ -109,7 +108,7 @@ Arguments:
 
 - param-map: a hash-map of parameters to send along with the
   request. Your VirusTotal API key will be added to this map"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [path param-map]
   (parse-and-replace-json-body (http/post (url-from-path path)
                                           (merge (add-api-key-to-multipart-map param-map)
@@ -127,7 +126,8 @@ Arguments:
   make multipart HTTP requests. More information on clj-http's usage can
   be found in its README:
   https://github.com/dakrone/clj-http#usage. Your VirusTotal API key
-  will be added to this map" {:added "2.0"}
+  will be added to this map"
+  {:added "1.0.0"}
   [path & {:as params}]
   (api-post-generic path (make-multipart-map params)))
 
@@ -140,7 +140,7 @@ Arguments:
 
 - query-params: keys and values to send as query parameters with the
   request"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [path & {:as query-params}]
   (parse-and-replace-json-body (http/get (url-from-path path)
                                          {:query-params (assoc query-params :apikey VT_API_KEY)})))

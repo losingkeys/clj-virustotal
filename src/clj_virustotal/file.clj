@@ -15,7 +15,7 @@ Arguments:
 - file-paths: absolute or relative file paths of files that should be
   uploaded to VirusTotal and scanned. Note: each file will be uploaded
   with its original filename"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [& file-paths]
   (vt/api-post-generic "/file/scan"
                        {:multipart (map #(let [f (io/file %)]
@@ -31,7 +31,7 @@ Arguments:
 
 - resources: a list of md5/sha1/sha256 hashes of files to be
   re-scanned. By default 25 are allowed per request"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [& resources]
   (vt/api-post "/file/rescan"
                :resource (s/join "," resources)))
@@ -44,7 +44,7 @@ Arguments:
 - resources: a list of md5/sha1/sha256 hashes of files to get reports
   for. These can also be 'scan ids' in the format
   \"sha256-timestamp\". By default 4 are allowed per request"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [& resources]
   (vt/api-post "/file/report"
                :resource (s/join "," resources)))

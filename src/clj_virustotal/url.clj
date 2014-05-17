@@ -14,7 +14,7 @@ https://www.virustotal.com/en/documentation/public-api/#scanning-urls"
 Arguments:
 
 - url: the url to scan"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [url]
   (vt/api-post "/url/scan"
                :url url))
@@ -31,7 +31,7 @@ Arguments:
 
 - scan: (optional) - 1 if VirusTotal will scan this URL when no report
   is found. Default is 0."
-  {:added "2.0"}
+  {:added "1.0.0"}
   [& resources]
   (let [all-but-last (take (dec (count resources)) resources)
         possible-scan-option (last resources)]

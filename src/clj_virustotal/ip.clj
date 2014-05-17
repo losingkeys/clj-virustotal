@@ -11,7 +11,7 @@ https://www.virustotal.com/en/documentation/public-api/#getting-ip-reports"
 Arguments:
 
 - ip: an ipv4 address in dotted notation"
-  {:added "2.0"}
+  {:added "1.0.0"}
   [ip]
   (vt/api-get "/ip-address/report"
               :ip ip))
